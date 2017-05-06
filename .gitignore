@@ -1,0 +1,5 @@
+/.idea
+/lib
+/*.iml
+/target/PeerToMeisterBO-1.0-SNAPSHOT/WEB-INF
+/target
