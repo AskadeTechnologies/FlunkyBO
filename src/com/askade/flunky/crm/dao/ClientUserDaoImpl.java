@@ -1,6 +1,8 @@
 package com.askade.flunky.crm.dao;
 
 import com.askade.flunky.crm.model.ClientUser;
+import com.askade.flunky.exception.LoginException;
+import com.askade.flunky.utils.FlunkyUtils;
 import org.hibernate.SessionFactory;
 import org.hibernate.procedure.ProcedureCall;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ public class ClientUserDaoImpl implements ClientUserDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-    private final String sequenceName = "xxptm_users_s";
+    private final String sequenceName = "xxflk_users_s";
 
     /**
      * @param clientUser
@@ -29,6 +31,9 @@ public class ClientUserDaoImpl implements ClientUserDao {
         ProcedureCall pc = sessionFactory.getCurrentSession().createStoredProcedureCall(this.sequenceName);
         pc.registerParameter(1, BigInteger.class, ParameterMode.OUT);
         clientUser.setUserId((BigInteger)pc.getOutputs().getOutputParameterValue(1));
+        if(clientUser.getDateIn() == null) {
+            clientUser.setDateIn(FlunkyUtils.getCurrentDate());
+        }
         sessionFactory.getCurrentSession().saveOrUpdate(clientUser);
     }
 
@@ -57,5 +62,39 @@ public class ClientUserDaoImpl implements ClientUserDao {
     @Override
     public ClientUser getClientUser(int clientUserId) {
         return (ClientUser) sessionFactory.getCurrentSession().get(ClientUser.class, clientUserId);
+    }
+
+    /**
+     * @param userName
+     * @return
+     */
+    public ClientUser getClientUserForUserName(String userName) {
+        List<ClientUser> clientUserList = sessionFactory.getCurrentSession().createQuery("from ClientUser where userName = ? order by userId desc").setParameter(0, userName).list();
+        if(clientUserList != null && clientUserList.size() > 0){
+            return clientUserList.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * @param clientUser
+     * @return
+     */
+    public BigInteger loginClientUser(ClientUser clientUser) throws LoginException {
+        ClientUser foundClientUser = getClientUserForUserName(clientUser.getUserName());
+        if(foundClientUser == null){
+            throw new LoginException("USERNAME_NOT_FOUND");
+        }
+        if(foundClientUser.getDateIn().after(FlunkyUtils.getCurrentDate())){
+            throw new LoginException("USERNAME_NOT_VALID");
+        }
+        if(foundClientUser.getDateOut() != null && foundClientUser.getDateOut().before(FlunkyUtils.getCurrentDate())){
+            throw new LoginException("USERNAME_NOT_VALID");
+        }
+        if(!foundClientUser.getPassword().equals(clientUser.getPassword())){
+            throw new LoginException("PASSWORD_INCORRECT");
+        }
+
+        return foundClientUser.getUserId();
     }
 }

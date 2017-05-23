@@ -1,88 +1,75 @@
-package com.askade.flunky.appconfig.model;
+package com.askade.flunky.crm.model;
 
-import com.askade.flunky.utils.FlunkyUtils;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
 
 /**
- * Created by AdrianIonita on 5/1/2017.
+ * Created by AdrianIonita on 5/22/2017.
  */
 @Entity
-@Table(name = "xxflk_document_types")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class DocumentType {
+@Table(name = "xxflk_client_credentials")
+public class ClientCredential {
+
     private BigInteger id;
-    private String code;
-    private String description;
+    private BigInteger clientId;
+    private BigInteger userId;
     private Date dateIn;
     private Date dateOut;
     private Date creationDate;
     private String createdBy;
     private Date lastUpdateDate;
     private String lastUpdatedBy;
-    private String rowStatus;
 
-    public DocumentType() {
+    public ClientCredential() {
     }
 
-    @Column(name = "id")
     @Id
+    @Column(name = "id", updatable = false)
     public BigInteger getId() {
         return id;
     }
-
-    @Column(name = "code")
-    public String getCode() {
-        return code;
+    @Column(name = "client_id", updatable = false)
+    public BigInteger getClientId() {
+        return clientId;
     }
-
-    @Column(name = "description")
-    public String getDescription() {
-        return description;
+    @Column(name = "user_id", updatable = false)
+    public BigInteger getUserId() {
+        return userId;
     }
-
-    @Column(name = "data_in")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
+    @Column(name = "date_id", updatable = false)
     public Date getDateIn() {
         return dateIn;
     }
-
-    @Column(name = "data_out")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
+    @Column(name = "date_out", updatable = true)
     public Date getDateOut() {
         return dateOut;
     }
 
-    @Column(name = "creation_date")
-    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column (name = "creation_date", updatable = false)
     public Date getCreationDate() {
         return creationDate;
     }
 
-    @Column(name = "created_by")
+    @Column (name = "created_by", updatable = false)
     public String getCreatedBy() {
         return createdBy;
     }
 
-    @Column(name = "last_update_date")
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Version
-    @UpdateTimestamp
+    @Column (name = "last_update_date")
     public Date getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    @Column(name = "last_updated_by")
+    @Column (name = "last_updated_by")
     public String getLastUpdatedBy() {
         return lastUpdatedBy;
     }
@@ -91,12 +78,12 @@ public class DocumentType {
         this.id = id;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setClientId(BigInteger clientId) {
+        this.clientId = clientId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setUserId(BigInteger userId) {
+        this.userId = userId;
     }
 
     public void setDateIn(Date dateIn) {
@@ -121,13 +108,5 @@ public class DocumentType {
 
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
-    }
-
-    public String getRowStatus() {
-        return rowStatus;
-    }
-
-    public void setRowStatus(String rowStatus) {
-        this.rowStatus = rowStatus;
     }
 }

@@ -1,7 +1,9 @@
 package com.askade.flunky.crm.service;
 
 import com.askade.flunky.crm.model.ClientUser;
+import com.askade.flunky.exception.LoginException;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -30,4 +32,17 @@ public interface ClientUserService {
      * @return
      */
     public ClientUser getClientUser(int clientUserId);
+
+    /**
+     * @param userName
+     * @return
+     */
+    public ClientUser getClientUserForUserName(String userName);
+
+    /**
+     * @param clientUser
+     * @return
+     * @throws LoginException
+     */
+    public BigInteger loginClientUser(ClientUser clientUser) throws LoginException;
 }

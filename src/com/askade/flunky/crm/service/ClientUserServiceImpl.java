@@ -2,10 +2,12 @@ package com.askade.flunky.crm.service;
 
 import com.askade.flunky.crm.dao.ClientUserDao;
 import com.askade.flunky.crm.model.ClientUser;
+import com.askade.flunky.exception.LoginException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -54,7 +56,21 @@ public class ClientUserServiceImpl implements ClientUserService {
         return clientUserDao.getClientUser(clientUserId);
     }
 
-    public void setClientUserDao(ClientUserDao clientUserDao) {
-        this.clientUserDao = clientUserDao;
+    /**
+     * @param userName
+     * @return
+     */
+    @Override
+    public ClientUser getClientUserForUserName(String userName) {
+        return clientUserDao.getClientUserForUserName(userName);
+    }
+
+    /**
+     * @param clientUser
+     * @return
+     */
+    @Override
+    public BigInteger loginClientUser(ClientUser clientUser) throws LoginException {
+        return clientUserDao.loginClientUser(clientUser);
     }
 }

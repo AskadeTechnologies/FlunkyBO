@@ -18,12 +18,12 @@
                 authentication-failure-url="/login?error"
                 username-parameter="username"
                 password-parameter="password" />
-        <logout logout-success-url="/login?logout" />
+        <logout logout-success-url="/login?logout" delete-cookies="JSESSIONID" invalidate-session="true"/>
         <!-- enable csrf protection -->
-        <csrf />
+        <!--csrf /-->
     </http>
 
-    <beans:bean class="com.askade.flunky.appconfig.service.AppUserDetailServiceImpl" name="appUserDetailService"></beans:bean>
+    <beans:bean class="com.askade.flunky.appconfig.service.AppUserDetailServiceImpl" name="appUserDetailService"/>
 
     <authentication-manager>
         <authentication-provider user-service-ref="appUserDetailService" >

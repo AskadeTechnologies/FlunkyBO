@@ -30,6 +30,12 @@ public class ClientUser {
     public ClientUser() {
     }
 
+    public ClientUser(String userName, String password, String socialMediaId) {
+        this.userName = userName;
+        this.password = password;
+        this.socialMediaId = socialMediaId;
+    }
+
     @PrePersist
     public void prePersist() {
         if(dateIn == null) {

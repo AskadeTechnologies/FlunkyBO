@@ -74,14 +74,41 @@
     <ul class="sidebar-menu">
       <li class="header">Main Menu</li>
       <li class="treeview">
-        <a href="#" onclick="workspace.showDashboard()">
+        <a href="#" onclick="flunkyWorkspace.showDashboard()">
           <i class="fa fa-wrench"></i> <span>Dashboard</span>
         </a>
       </li>
-      <li class="treeview">
-        <a href="#" onclick="workspace.showAppConfig();">
-          <i class="fa fa-wrench"></i> <span>Application Config</span>
+      <li class="active treeview">
+        <a href="#">
+          <i class="fa fa-dashboard"></i> <span>Application Config</span>
+          <span class="pull-right-container">
+	              <i class="fa fa-angle-left pull-right"></i>
+          </span>
         </a>
+        <ul class="treeview-menu">
+          <li>
+            <a href="#">
+              <i class="fa fa-circle-o"></i> Client Config
+              <span class="pull-right-container">
+		                  <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="#" onclick="flunkyWorkspace.showDocumentConfig();"><i class="fa fa-circle-o"></i> Document config</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-circle-o"></i> Operations Config
+              <span class="pull-right-container">
+		                  <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="#" ><i class="fa fa-circle-o"></i> Operations Type</a></li>
+            </ul>
+          </li>
+        </ul>
       </li>
     </ul>
   </section>
@@ -143,9 +170,10 @@
     <section id="client-config" class="content" style="display:none">
       <div class="h-divider"></div>
       <div>
-        <h3><b>Clienti</b></h3>
+        <h3><b>Tipuri Documente Clienti</b></h3>
         <div class="h-spacer"></div>
-          <button id="addNewDocumentType" onclick="workspace.addNewDocumentType()" class="btn icon-add">Add</button>
+          <button id="addNewDocumentType" onclick="flunkyWorkspace.documenTypeAction.addNewDocumentType()" class="btn btn-primary">Add</button>
+          <button id="saveDocumentTypes" onclick="flunkyWorkspace.documenTypeAction.saveNewDocType()" class="btn btn-success">Save</button>
           <table id="documentType-table" class="table table-bordered table-striped"></table>
           <div id="documentTypeTablePager"></div>
       </div>
@@ -195,7 +223,7 @@
   <script type="text/javascript" src='<c:url value="/resources/pdfViewer/pdf.js"/>'></script>
   <!-- PTM App JS -->
 
-  <script type="text/javascript" src='<c:url value="/resources/js/workspace.js"/>'></script>
+  <script type="text/javascript" src='<c:url value="/resources/js/flunkyWorkspace.js"/>'></script>
   <script type="text/javascript" src='<c:url value="/resources/js/appConfig/action/documentTypeAction.js"/>'></script>
   <script type="text/javascript" src='<c:url value="/resources/js/appConfig/model/documentTypeObject.js"/>'></script>
   <script type="text/javascript" src='<c:url value="/resources/js/ptm.js"/>'></script>

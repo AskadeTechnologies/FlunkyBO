@@ -17,7 +17,7 @@ import java.util.List;
 @Repository
 public class DocumentTypeDaoImpl implements DocumentTypeDao {
 
-    private final static String sequenceName = "";
+    private final static String sequenceName = "xxflk_document_types_s";
 
     @Autowired
     private SessionFactory sessionFactory;

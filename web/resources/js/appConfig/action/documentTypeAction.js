@@ -31,14 +31,14 @@ DocumentTypeAction.prototype.getDocumentTypeList = function(){
 DocumentTypeAction.prototype.refreshDocumentTypes = function(){
     self = this;
     $.ajax({
-        url: workspace.urlPrefix+"/config/clients/getDocumentTypes",
+        url: flunkyWorkspace.urlPrefix+"/config/client/getDocumentTypes",
         type: "GET",
         data: [],
         dataType: 'json',
         contentType: "application/json",
         success: function (resultedData) {
             if(resultedData.status == "ERROR"){
-                workspace.showError(resultedData.statusMessage);
+                flunkyWorkspace.showError(resultedData.statusMessage);
             }else{
                 $grid = $("#documentType-table");
                 $grid.jqGrid('clearGridData')
@@ -73,24 +73,21 @@ DocumentTypeAction.prototype.documentTypeList = function() {
     self = this;
     $grid = $("#documentType-table");
     $grid.jqGrid({
-        url: workspace.urlPrefix+"/config/clients/getDocumentTypes",
+        url: flunkyWorkspace.urlPrefix+"/config/client/getDocumentTypes",
         styleUI : 'Bootstrap',
         datatype: "json",
         colNames:['Id','Code','Description','Data in', 'Data out', 'Save'],
         colModel:[{name:'id', index:'id', hidden: true},
             {name:'code', index:'code', hidden: false, editable: true},
             {name:'description', index:'description', hidden: false,editable: true },
-            {name:'dataIn', index:'dataIn', hidden: false, editable: true},
-            {name:'dataOut', index:'dataOut', hidden: false, editable: true},
-            {name:'save', index:'save', hidden: false}],
-        rowNum:30, rowList:[10,20,30],
+            {name:'dateIn', index:'dateIn', hidden: false, editable: true, formatter : 'date', formatoptions : {newformat : 'd-m-Y'}} ,
+            {name:'dateOut', index:'dateOut', hidden: false, editable: true},
+            {name:'rowStatus', index:'rowStatus', hidden: true}],
+        rowNum:10, rowList:[5,10,20],
         sortname: 'id',
         viewrecords: true,
         sortorder: "desc",
-        shrinkToFit: true,
         autowidth:true,
-        forceFit:true,
-        pager: '#pager',
         width: '100%',
         height: '100%',
         loadonce: true,
@@ -104,14 +101,20 @@ DocumentTypeAction.prototype.documentTypeList = function() {
         },
         loadComplete: function(data) {
             if(data.status == "ERROR"){
-                workspace.showError(data.statusMessage);
+                flunkyWorkspace.showError(data.statusMessage);
             }
-
+                $('#gview_docTypes-table div.ui-jqgrid-bdiv').css({
+                    "height":"500px",
+                    "overflow":"hidden"
+                });
+                $('#gview_docTypes-table div.ui-jqgrid-bdiv').perfectScrollbar();
+            /*
             $('#gview_reportmapping-table div.ui-jqgrid-bdiv').css({
                 "height":"500px",
                 "overflow":"hidden"
             });
             $('#gview_reportmapping-table div.ui-jqgrid-bdiv').perfectScrollbar();
+            */
         }/*,
          onSelectRow: function(id) {
          var grid = $("#productspecmapping-table");
@@ -129,4 +132,39 @@ DocumentTypeAction.prototype.documentTypeList = function() {
          }
          }*/
     });
+
+
+}
+
+
+DocumentTypeAction.prototype.saveNewDocType = function(){
+
+    //var _row = jQuery("#documentType-table").jqGrid("getRowData", rowid);
+    var ids = jQuery("#documentType-table").jqGrid('getDataIDs');
+    for(var i=0;i <ids.length; i++) {
+        jQuery("#documentType-table").jqGrid('saveRow',ids[i], false, 'clientArray');
+        var _row = jQuery("#documentType-table").jqGrid("getRowData", ids[i]);
+        if(_row.rowStatus == "INSERT"){
+            console.log("document type "+JSON.stringify(_row, ["code","description","dateIn","dateOut"]));
+            $.ajax({
+                url: flunkyWorkspace.urlPrefix+"/config/client/postNewDocumentType", type: 'POST',
+                data: JSON.stringify(_row, ["code","description","dateIn","dateOut"]), dataType: 'json', contentType: "application/json",
+                success: function (result) {
+                    //FlunkyWorkspace.actions().getProductAction().newAndEditedProductListTable(result.data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log('Error setting new Document Type');
+                }
+            });
+        }
+    }
+
+}
+
+DocumentTypeAction.prototype.addNewDocumentType = function(){
+    jQuery("#documentType-table").addRowData( '1', new DocumentTypeObject("INSERT"));
+    $("#documentType-table").jqGrid('editRow', '1',true);
+    //saveRow = "<button id=\"btn-saveDocType\" type=\"button\" class=\"btn btn-block btn-primary\" onclick=\"FlunkyWorkspace.saveNewDocType("+'1'+")\" >Save</button>";
+
+    //jQuery("#documentType-table").jqGrid('setRowData', '1', {save:saveRow});
 }

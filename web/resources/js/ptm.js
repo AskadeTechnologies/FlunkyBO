@@ -1,10 +1,10 @@
 /**
  * Created by AdrianIonita on 5/1/2017.
  */
-var workspace = new Workspace();
+var flunkyWorkspace = new FlunkyWorkspace();
 
 $(document).ready(function() {
-    workspace.init();
+    flunkyWorkspace.init();
 });
 
 $(document).ajaxStart(function() { Pace.restart(); });
