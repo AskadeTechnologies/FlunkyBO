@@ -1,6 +1,8 @@
 package com.askade.flunky.controller;
 
+import com.askade.flunky.appconfig.model.ClientType;
 import com.askade.flunky.appconfig.model.DocumentType;
+import com.askade.flunky.appconfig.service.ClientTypeService;
 import com.askade.flunky.appconfig.service.DocumentTypeService;
 import com.askade.flunky.crm.model.ClientUser;
 import com.askade.flunky.crm.service.ClientUserService;
@@ -25,6 +27,9 @@ public class ClientConfigController {
     @Autowired
     private DocumentTypeService documentTypeService;
 
+    @Autowired
+    private ClientTypeService<ClientType> clientTypeService;
+
     /**
      * @return
      */
@@ -42,6 +47,22 @@ public class ClientConfigController {
     public @ResponseBody JsonResponse postNewDocumentType(@RequestBody DocumentType documentType){
         documentTypeService.addDocumentType(documentType);
         return JsonResponse.forSuccess();
+    }
+
+    /**
+     * @param clientType
+     * @return
+     */
+    @Transactional
+    @RequestMapping(value = "/postNewClientType", method = RequestMethod.POST)
+    public @ResponseBody JsonResponse postNewClientType(@RequestBody ClientType clientType){
+        clientTypeService.addRow(clientType);
+        return JsonResponse.forSuccess();
+    }
+
+    @RequestMapping(value = "/getClientTypes", method = RequestMethod.GET)
+    public @ResponseBody JsonResponse getClientTypes(){
+        return JsonResponse.forSuccess(clientTypeService.getAllRows());
     }
 
 }

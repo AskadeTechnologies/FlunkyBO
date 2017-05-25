@@ -23,6 +23,8 @@
         <servlet-class>
             org.springframework.web.servlet.DispatcherServlet
         </servlet-class>
+        <!--com.askade.flunky.kernel.FlunkyDispatcherServlet-->
+        <!--org.springframework.web.servlet.DispatcherServlet-->
         <load-on-startup>1</load-on-startup>
     </servlet>
 

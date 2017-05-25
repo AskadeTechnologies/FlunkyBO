@@ -25,6 +25,13 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
+    <!-- Interceptor -->
+    <!-- This runs for all mappings -->
+    <mvc:interceptors>
+
+        <bean  class="com.askade.flunky.kernel.FlunkyInterceptor"/>
+    </mvc:interceptors>
+
     <!-- DataSource -->
     <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
           id="dataSource">

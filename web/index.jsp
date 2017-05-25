@@ -174,7 +174,7 @@
         <div class="h-spacer"></div>
           <button id="addNewDocumentType" onclick="flunkyWorkspace.documenTypeAction.addNewDocumentType()" class="btn btn-primary">Add</button>
           <button id="saveDocumentTypes" onclick="flunkyWorkspace.documenTypeAction.saveNewDocType()" class="btn btn-success">Save</button>
-          <table id="documentType-table" class="table table-bordered table-striped"></table>
+          <table id="documentType-table" class="table table-bordered table-striped "></table>
           <div id="documentTypeTablePager"></div>
       </div>
     </section>

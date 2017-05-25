@@ -80,8 +80,38 @@ DocumentTypeAction.prototype.documentTypeList = function() {
         colModel:[{name:'id', index:'id', hidden: true},
             {name:'code', index:'code', hidden: false, editable: true},
             {name:'description', index:'description', hidden: false,editable: true },
-            {name:'dateIn', index:'dateIn', hidden: false, editable: true, formatter : 'date', formatoptions : {newformat : 'd-m-Y'}} ,
-            {name:'dateOut', index:'dateOut', hidden: false, editable: true},
+            {name:'dateIn',
+                index:'dateIn',
+                hidden: false,
+                align: 'right',
+                formatter: 'date',
+                editable: true,
+                editoptions: {
+                    size: 20,
+                    maxlengh: 10,
+                    dataInit: function (element) {
+                        $(element).datepicker();
+                    }
+                },
+                editrules: {
+                    date: true,
+                    minValue: 0
+                }} ,
+            {name:'dateOut', index:'dateOut', hidden: false,
+                align: 'right',
+                formatter: 'date',
+                editable: true,
+                editoptions: {
+                    size: 20,
+                    maxlengh: 10,
+                    dataInit: function (element) {
+                        $(element).datepicker();
+                    }
+                },
+                editrules: {
+                    date: true,
+                    minValue: 0
+                }},
             {name:'rowStatus', index:'rowStatus', hidden: true}],
         rowNum:10, rowList:[5,10,20],
         sortname: 'id',
