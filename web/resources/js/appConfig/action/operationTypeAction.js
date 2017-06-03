@@ -1,30 +1,30 @@
 /**
- * Created by AdrianIonita on 5/31/2017.
+ * Created by AdrianIonita on 6/4/2017.
  */
-var ClientTypeAction = function() {
+var OperationTypeAction = function() {
     this.editedSpecIds = [];
     this.specTableSelection = null;
 }
 
-ClientTypeAction.prototype.initClientTypePage = function() {
-    this.getClientTypeList();
+OperationTypeAction.prototype.initOperationTypePage = function() {
+    this.getOperationTypeList();
 }
 
 
-ClientTypeAction.prototype.getClientTypeList = function(){
-    var table = 'clientType-table';
+OperationTypeAction.prototype.getOperationTypeList = function(){
+    var table = 'operationType-table';
     if ($('#gview_'+table+' div.ui-jqgrid-bdiv').length > 0) {
-        $("#clientType-table").jqGrid('clearGridData');
-        this.refreshClientType();
+        $("#operationType-table").jqGrid('clearGridData');
+        this.refreshOperationType();
     } else {
-        this.clientTypeList();
+        this.operationTypeList();
     }
 }
 
-ClientTypeAction.prototype.refreshClientType = function(){
+OperationTypeAction.prototype.refreshOperationType = function(){
     self = this;
     $.ajax({
-        url: flunkyWorkspace.urlPrefix+"/config/client/getClientTypes",
+        url: flunkyWorkspace.urlPrefix+"/config/opreation/getOperationTypes",
         type: "GET",
         data: [],
         dataType: 'json',
@@ -33,7 +33,7 @@ ClientTypeAction.prototype.refreshClientType = function(){
             if(resultedData.status == "ERROR"){
                 flunkyWorkspace.showError(resultedData.statusMessage);
             }else{
-                $grid = $("#clientType-table");
+                $grid = $("#operationType-table");
                 $grid.jqGrid('clearGridData')
                     .jqGrid('setGridParam',{data:resultedData.data}).trigger('reloadGrid', [{ page: 1}]);
 
@@ -46,16 +46,16 @@ ClientTypeAction.prototype.refreshClientType = function(){
     });
 }
 
-ClientTypeAction.prototype.afterGridLoad = function(){
+OperationTypeAction.prototype.afterGridLoad = function(){
 }
 
 
-ClientTypeAction.prototype.clientTypeList = function() {
+OperationTypeAction.prototype.operationTypeList = function() {
 
     self = this;
-    $grid = $("#clientType-table");
+    $grid = $("#operationType-table");
     $grid.jqGrid({
-        url: flunkyWorkspace.urlPrefix+"/config/client/getClientTypes",
+        url: flunkyWorkspace.urlPrefix+"/config/operation/getOperationTypes",
         styleUI : 'Bootstrap',
         datatype: "json",
         colNames:['Id','Code','Description','Data in', 'Data out', 'Save'],
@@ -75,10 +75,10 @@ ClientTypeAction.prototype.clientTypeList = function() {
                         $(element).datepicker({ dateFormat: 'd-mm-yy' });
                     }
                 }/*,
-                editrules: {
-                    date: true,
-                    minValue: 0
-                }*/} ,
+             editrules: {
+             date: true,
+             minValue: 0
+             }*/} ,
             {name:'dateOut', index:'dateOut', hidden: false,
                 align: 'right',
                 formatter: 'date',
@@ -90,10 +90,10 @@ ClientTypeAction.prototype.clientTypeList = function() {
                         $(element).datepicker({ dateFormat: 'd-mm-yy' });
                     }
                 }/*,
-                editrules: {
-                    date: true,
-                    minValue: 0
-                }*/},
+             editrules: {
+             date: true,
+             minValue: 0
+             }*/},
             {name:'rowStatus', index:'rowStatus', hidden: true}],
         rowNum:10, rowList:[5,10,20],
         sortname: 'id',
@@ -117,34 +117,34 @@ ClientTypeAction.prototype.clientTypeList = function() {
                 flunkyWorkspace.showError(data.statusMessage);
             }
 
-            $('#gview_clientType-table div.ui-jqgrid-bdiv').css({
+            $('#gview_operationType-table div.ui-jqgrid-bdiv').css({
                 "height":"500px",
                 "overflow":"hidden"
             });
-            $('#gview_clientType-table div.ui-jqgrid-bdiv').perfectScrollbar();
+            $('#gview_operationType-table div.ui-jqgrid-bdiv').perfectScrollbar();
 
         }
     });
 }
 
 
-ClientTypeAction.prototype.saveClientType = function(){
-    var ids = jQuery("#clientType-table").jqGrid('getDataIDs');
+OperationTypeAction.prototype.saveOperationType = function(){
+    var ids = jQuery("#operationType-table").jqGrid('getDataIDs');
     for(var i=0;i <ids.length; i++) {
-        jQuery("#clientType-table").jqGrid('saveRow', ids[i], false, 'clientArray');
+        jQuery("#operationType-table").jqGrid('saveRow', ids[i], false, 'clientArray');
     }
-    var ids = jQuery("#clientType-table").jqGrid('getDataIDs');
+    var ids = jQuery("#operationType-table").jqGrid('getDataIDs');
     for(var i=0;i <ids.length; i++) {
-        var _row = jQuery("#clientType-table").jqGrid("getRowData", ids[i]);
+        var _row = jQuery("#operationType-table").jqGrid("getRowData", ids[i]);
         if(_row.rowStatus == "INSERT"){
-            console.log("client Type "+JSON.stringify(_row, flunkyWorkspace.replaceSpaceString,["id", "code","description","dateIn","dateOut"]));
+            console.log("operation Type "+JSON.stringify(_row, flunkyWorkspace.replaceSpaceString,["id", "code","description","dateIn","dateOut"]));
             $.ajax({
-                url: flunkyWorkspace.urlPrefix+"/config/client/postNewClientType", type: 'POST',
-                data: JSON.stringify(_row, flunkyWorkspace.replaceSpaceString, ["id", "code","description","dateIn","dateOut"]), dataType: 'json', contentType: "application/json",
+                url: flunkyWorkspace.urlPrefix+"/config/operation/addOperationType", type: 'POST',
+                data: JSON.stringify(_row, flunkyWorkspace.replaceSpaceString, ["id","code","description","dateIn","dateOut"]), dataType: 'json', contentType: "application/json",
                 success: function (result) {
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    console.log('Error setting new Client Type');
+                    console.log('Error setting new phone Type');
                     console.log(jqXHR);
                 }
             });
@@ -153,8 +153,8 @@ ClientTypeAction.prototype.saveClientType = function(){
 
 }
 
-ClientTypeAction.prototype.addClientType = function(){
+OperationTypeAction.prototype.addOperationType = function(){
     var rowId = $.jgrid.randId();
-    jQuery("#clientType-table").addRowData( rowId, new ClientTypeObject("INSERT"));
-    $("#clientType-table").jqGrid('editRow', rowId,true);
+    jQuery("#operationType-table").addRowData( rowId, new OperationTypeObject("INSERT"));
+    $("#operationType-table").jqGrid('editRow', rowId,true);
 }

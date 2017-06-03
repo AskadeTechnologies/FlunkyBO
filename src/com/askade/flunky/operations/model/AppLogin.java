@@ -4,7 +4,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -13,10 +12,10 @@ import java.util.Date;
 @Entity
 @Table(name = "xxflk_app_logins")
 public class AppLogin {
-    private BigInteger id;
+    private Integer id;
     private String callerApp;
     private String authKey;
-    private BigInteger clientId;
+    private Integer clientId;
     private Date startDate;
     private Date endDate;
     private Date creationDate;
@@ -34,7 +33,7 @@ public class AppLogin {
 
     @Column(name = "id", updatable = false)
     @Id
-    public BigInteger getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -49,7 +48,7 @@ public class AppLogin {
     }
 
     @Column (name = "client_id", updatable = false)
-    public BigInteger getClientId() {
+    public Integer getClientId() {
         return clientId;
     }
 
@@ -85,7 +84,7 @@ public class AppLogin {
         return lastUpdatedBy;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -97,7 +96,7 @@ public class AppLogin {
         this.authKey = authKey;
     }
 
-    public void setClientId(BigInteger clientId) {
+    public void setClientId(Integer clientId) {
         this.clientId = clientId;
     }
 

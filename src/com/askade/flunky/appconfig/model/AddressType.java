@@ -19,8 +19,8 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AddressType {
 
-    private BigInteger id;
-    private BigInteger categoryId;
+    private Integer id;
+    private Integer categoryId;
     private String code;
     private String description;
     private Date dateIn;
@@ -36,12 +36,12 @@ public class AddressType {
 
     @Column(name = "id")
     @Id
-    public BigInteger getId() {
+    public Integer getId() {
         return id;
     }
 
     @Column(name = "category_id", nullable = false)
-    public BigInteger getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
@@ -57,6 +57,7 @@ public class AddressType {
 
     @Column(name = "data_in")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
     public Date getDateIn() {
         return dateIn;
@@ -64,6 +65,7 @@ public class AddressType {
 
     @Column(name = "data_out")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
     public Date getDateOut() {
         return dateOut;
@@ -94,11 +96,11 @@ public class AddressType {
         return lastUpdatedBy;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setCategoryId(BigInteger categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 

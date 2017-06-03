@@ -50,7 +50,7 @@ public class DocumentTypeDaoImpl implements DocumentTypeDao {
     public void addDocumentType(DocumentType documentType) {
         ProcedureCall pc = sessionFactory.getCurrentSession().createStoredProcedureCall(this.sequenceName);
         pc.registerParameter(1, BigInteger.class, ParameterMode.OUT);
-        documentType.setId((BigInteger)pc.getOutputs().getOutputParameterValue(1));
+        documentType.setId((Integer)pc.getOutputs().getOutputParameterValue(1));
         sessionFactory.getCurrentSession().saveOrUpdate(documentType);
     }
 

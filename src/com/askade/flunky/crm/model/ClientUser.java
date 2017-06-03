@@ -1,11 +1,12 @@
 package com.askade.flunky.crm.model;
 
 import com.askade.flunky.utils.FlunkyUtils;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Date;
 @Table(name = "xxflk_users")
 public class ClientUser {
 
-    private BigInteger userId;
+    private Integer userId;
     private String userName;
     private String userDescription;
     private String password;
@@ -51,7 +52,7 @@ public class ClientUser {
 
     @Column(name = "user_id", updatable = false)
     @Id
-    public BigInteger getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
@@ -76,12 +77,17 @@ public class ClientUser {
     }
 
     @Column (name = "data_in", updatable = false)
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
     public Date getDateIn() {
         return dateIn;
     }
 
     @Column (name = "data_out")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
     public Date getDateOut() {
         return dateOut;
     }
@@ -111,7 +117,7 @@ public class ClientUser {
         return lastUpdatedBy;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

@@ -1,30 +1,30 @@
 /**
- * Created by AdrianIonita on 5/31/2017.
+ * Created by AdrianIonita on 6/3/2017.
  */
-var ClientTypeAction = function() {
+var PhoneTypeAction = function() {
     this.editedSpecIds = [];
     this.specTableSelection = null;
 }
 
-ClientTypeAction.prototype.initClientTypePage = function() {
-    this.getClientTypeList();
+PhoneTypeAction.prototype.initPhoneTypePage = function() {
+    this.getPhoneTypeList();
 }
 
 
-ClientTypeAction.prototype.getClientTypeList = function(){
-    var table = 'clientType-table';
+PhoneTypeAction.prototype.getPhoneTypeList = function(){
+    var table = 'phoneType-table';
     if ($('#gview_'+table+' div.ui-jqgrid-bdiv').length > 0) {
-        $("#clientType-table").jqGrid('clearGridData');
-        this.refreshClientType();
+        $("#phoneType-table").jqGrid('clearGridData');
+        this.refreshPhoneType();
     } else {
-        this.clientTypeList();
+        this.phoneTypeList();
     }
 }
 
-ClientTypeAction.prototype.refreshClientType = function(){
+PhoneTypeAction.prototype.refreshPhoneType = function(){
     self = this;
     $.ajax({
-        url: flunkyWorkspace.urlPrefix+"/config/client/getClientTypes",
+        url: flunkyWorkspace.urlPrefix+"/config/client/getPhoneTypes",
         type: "GET",
         data: [],
         dataType: 'json',
@@ -33,7 +33,7 @@ ClientTypeAction.prototype.refreshClientType = function(){
             if(resultedData.status == "ERROR"){
                 flunkyWorkspace.showError(resultedData.statusMessage);
             }else{
-                $grid = $("#clientType-table");
+                $grid = $("#phoneType-table");
                 $grid.jqGrid('clearGridData')
                     .jqGrid('setGridParam',{data:resultedData.data}).trigger('reloadGrid', [{ page: 1}]);
 
@@ -46,16 +46,16 @@ ClientTypeAction.prototype.refreshClientType = function(){
     });
 }
 
-ClientTypeAction.prototype.afterGridLoad = function(){
+PhoneTypeAction.prototype.afterGridLoad = function(){
 }
 
 
-ClientTypeAction.prototype.clientTypeList = function() {
+PhoneTypeAction.prototype.phoneTypeList = function() {
 
     self = this;
-    $grid = $("#clientType-table");
+    $grid = $("#phoneType-table");
     $grid.jqGrid({
-        url: flunkyWorkspace.urlPrefix+"/config/client/getClientTypes",
+        url: flunkyWorkspace.urlPrefix+"/config/client/getPhoneTypes",
         styleUI : 'Bootstrap',
         datatype: "json",
         colNames:['Id','Code','Description','Data in', 'Data out', 'Save'],
@@ -75,10 +75,10 @@ ClientTypeAction.prototype.clientTypeList = function() {
                         $(element).datepicker({ dateFormat: 'd-mm-yy' });
                     }
                 }/*,
-                editrules: {
-                    date: true,
-                    minValue: 0
-                }*/} ,
+             editrules: {
+             date: true,
+             minValue: 0
+             }*/} ,
             {name:'dateOut', index:'dateOut', hidden: false,
                 align: 'right',
                 formatter: 'date',
@@ -90,10 +90,10 @@ ClientTypeAction.prototype.clientTypeList = function() {
                         $(element).datepicker({ dateFormat: 'd-mm-yy' });
                     }
                 }/*,
-                editrules: {
-                    date: true,
-                    minValue: 0
-                }*/},
+             editrules: {
+             date: true,
+             minValue: 0
+             }*/},
             {name:'rowStatus', index:'rowStatus', hidden: true}],
         rowNum:10, rowList:[5,10,20],
         sortname: 'id',
@@ -117,34 +117,34 @@ ClientTypeAction.prototype.clientTypeList = function() {
                 flunkyWorkspace.showError(data.statusMessage);
             }
 
-            $('#gview_clientType-table div.ui-jqgrid-bdiv').css({
+            $('#gview_phoneType-table div.ui-jqgrid-bdiv').css({
                 "height":"500px",
                 "overflow":"hidden"
             });
-            $('#gview_clientType-table div.ui-jqgrid-bdiv').perfectScrollbar();
+            $('#gview_phoneType-table div.ui-jqgrid-bdiv').perfectScrollbar();
 
         }
     });
 }
 
 
-ClientTypeAction.prototype.saveClientType = function(){
-    var ids = jQuery("#clientType-table").jqGrid('getDataIDs');
+PhoneTypeAction.prototype.savePhoneType = function(){
+    var ids = jQuery("#phoneType-table").jqGrid('getDataIDs');
     for(var i=0;i <ids.length; i++) {
-        jQuery("#clientType-table").jqGrid('saveRow', ids[i], false, 'clientArray');
+        jQuery("#phoneType-table").jqGrid('saveRow', ids[i], false, 'clientArray');
     }
-    var ids = jQuery("#clientType-table").jqGrid('getDataIDs');
+    var ids = jQuery("#phoneType-table").jqGrid('getDataIDs');
     for(var i=0;i <ids.length; i++) {
-        var _row = jQuery("#clientType-table").jqGrid("getRowData", ids[i]);
+        var _row = jQuery("#phoneType-table").jqGrid("getRowData", ids[i]);
         if(_row.rowStatus == "INSERT"){
-            console.log("client Type "+JSON.stringify(_row, flunkyWorkspace.replaceSpaceString,["id", "code","description","dateIn","dateOut"]));
+            console.log("phone Type "+JSON.stringify(_row, flunkyWorkspace.replaceSpaceString,["id", "code","description","dateIn","dateOut"]));
             $.ajax({
-                url: flunkyWorkspace.urlPrefix+"/config/client/postNewClientType", type: 'POST',
-                data: JSON.stringify(_row, flunkyWorkspace.replaceSpaceString, ["id", "code","description","dateIn","dateOut"]), dataType: 'json', contentType: "application/json",
+                url: flunkyWorkspace.urlPrefix+"/config/client/postPhoneType", type: 'POST',
+                data: JSON.stringify(_row, flunkyWorkspace.replaceSpaceString, ["id","code","description","dateIn","dateOut"]), dataType: 'json', contentType: "application/json",
                 success: function (result) {
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    console.log('Error setting new Client Type');
+                    console.log('Error setting new phone Type');
                     console.log(jqXHR);
                 }
             });
@@ -153,8 +153,8 @@ ClientTypeAction.prototype.saveClientType = function(){
 
 }
 
-ClientTypeAction.prototype.addClientType = function(){
+PhoneTypeAction.prototype.addPhoneType = function(){
     var rowId = $.jgrid.randId();
-    jQuery("#clientType-table").addRowData( rowId, new ClientTypeObject("INSERT"));
-    $("#clientType-table").jqGrid('editRow', rowId,true);
+    jQuery("#phoneType-table").addRowData( rowId, new PhoneTypeObject("INSERT"));
+    $("#phoneType-table").jqGrid('editRow', rowId,true);
 }

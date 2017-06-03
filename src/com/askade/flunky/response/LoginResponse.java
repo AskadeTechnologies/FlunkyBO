@@ -1,13 +1,11 @@
 package com.askade.flunky.response;
 
-import java.math.BigInteger;
-
 /**
  * Created by AdrianIonita on 5/22/2017.
  */
 public class LoginResponse {
     private String authKey;
-    private BigInteger clientId;
+    private Integer clientId;
 
     public LoginResponse() {
     }
@@ -20,11 +18,11 @@ public class LoginResponse {
         this.authKey = authKey;
     }
 
-    public BigInteger getClientId() {
+    public Integer getClientId() {
         return clientId;
     }
 
-    public void setClientId(BigInteger clientId) {
+    public void setClientId(Integer clientId) {
         this.clientId = clientId;
     }
 

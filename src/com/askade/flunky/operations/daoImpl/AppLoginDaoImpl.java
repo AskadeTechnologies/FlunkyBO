@@ -1,6 +1,7 @@
-package com.askade.flunky.operations.dao;
+package com.askade.flunky.operations.daoImpl;
 
 import com.askade.flunky.exception.AuthKeyException;
+import com.askade.flunky.operations.dao.AppLoginDao;
 import com.askade.flunky.operations.model.AppLogin;
 import com.askade.flunky.utils.FlunkyUtils;
 import org.hibernate.SessionFactory;
@@ -26,8 +27,8 @@ public class AppLoginDaoImpl implements AppLoginDao {
     @Override
     public String addAppLogin(AppLogin appLogin) {
         ProcedureCall appLoginId = sessionFactory.getCurrentSession().createStoredProcedureCall(this.sequenceName);
-        appLoginId.registerParameter(1, BigInteger.class, ParameterMode.OUT);
-        appLogin.setId((BigInteger)appLoginId.getOutputs().getOutputParameterValue(1));
+        appLoginId.registerParameter(1, Integer.class, ParameterMode.OUT);
+        appLogin.setId((Integer)appLoginId.getOutputs().getOutputParameterValue(1));
         ProcedureCall authKeySeq = sessionFactory.getCurrentSession().createStoredProcedureCall(this.authSequence);
         authKeySeq.registerParameter(1, String.class, ParameterMode.OUT);
         appLogin.setAuthKey((String)authKeySeq.getOutputs().getOutputParameterValue(1));

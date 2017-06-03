@@ -1,10 +1,13 @@
 package com.askade.flunky.kernel;
 
+import com.askade.flunky.crm.model.Client;
 import org.hibernate.SessionFactory;
+import org.hibernate.procedure.ProcedureCall;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.ParameterMode;
 import java.lang.reflect.ParameterizedType;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -60,5 +63,13 @@ public class FlunkyGenericDaoImpl<T> implements FlunkyConfigTableGenericDao<T>{
     @Override
     public void updateRow(T row) {
         sessionFactory.getCurrentSession().update(row);
+    }
+
+    public static Integer getTableId(SessionFactory sessionFactory, String sequenceName){
+        ProcedureCall pc = sessionFactory.getCurrentSession().createStoredProcedureCall(sequenceName);
+        pc.registerParameter(1, Integer.class, ParameterMode.OUT);
+        Integer tableId = (Integer)pc.getOutputs().getOutputParameterValue(1);
+        return tableId;
+
     }
 }

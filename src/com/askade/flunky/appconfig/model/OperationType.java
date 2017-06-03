@@ -8,16 +8,16 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Date;
 
 /**
- * Created by AdrianIonita on 5/1/2017.
+ * Created by AdrianIonita on 6/4/2017.
  */
 @Entity
-@Table(name = "xxflk_document_types")
+@Table(name = "xxflk_operation_types")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DocumentType {
+public class OperationType {
+
     private Integer id;
     private String code;
     private String description;
@@ -27,9 +27,8 @@ public class DocumentType {
     private String createdBy;
     private Date lastUpdateDate;
     private String lastUpdatedBy;
-    private String rowStatus;
 
-    public DocumentType() {
+    public OperationType() {
     }
 
     @Column(name = "id")
@@ -125,11 +124,18 @@ public class DocumentType {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
-    public String getRowStatus() {
-        return rowStatus;
-    }
-
-    public void setRowStatus(String rowStatus) {
-        this.rowStatus = rowStatus;
+    @Override
+    public String toString() {
+        return "OperationType{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", description='" + description + '\'' +
+                ", dateIn=" + dateIn +
+                ", dateOut=" + dateOut +
+                ", creationDate=" + creationDate +
+                ", createdBy='" + createdBy + '\'' +
+                ", lastUpdateDate=" + lastUpdateDate +
+                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
+                '}';
     }
 }

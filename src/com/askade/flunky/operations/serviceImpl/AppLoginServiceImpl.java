@@ -1,8 +1,9 @@
-package com.askade.flunky.operations.service;
+package com.askade.flunky.operations.serviceImpl;
 
 import com.askade.flunky.exception.AuthKeyException;
 import com.askade.flunky.operations.dao.AppLoginDao;
 import com.askade.flunky.operations.model.AppLogin;
+import com.askade.flunky.operations.service.AppLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

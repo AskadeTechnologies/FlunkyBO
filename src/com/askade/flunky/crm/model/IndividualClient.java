@@ -1,31 +1,34 @@
 package com.askade.flunky.crm.model;
 
+import com.askade.flunky.utils.FlunkyUtils;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Date;
 
 /**
- * Created by AdrianIonita on 5/22/2017.
+ * Created by AdrianIonita on 6/3/2017.
  */
 @Entity
-@Table(name = "xxflk_clients")
-public class Client {
-    public static final String sequenceName = "xxflk_clients_s";
+@Table(name = "xxflk_individual_clients")
+public class IndividualClient {
 
     private Integer clientId;
-    private String clientName;
-    private Integer clientCategory;
-    private Integer clientSubcategory;
-    private Integer clientTypeId;
+    private String lastName;
+    private String firstName;
+    private String nationalIdentifier;
+    private Date birthDate;
+    private String sex;
     private Date creationDate;
     private String createdBy;
     private Date lastUpdateDate;
     private String lastUpdatedBy;
 
-    public Client() {
+
+    public IndividualClient() {
     }
 
     @Id
@@ -34,24 +37,28 @@ public class Client {
         return clientId;
     }
 
-    @Column(name = "client_name", updatable = true)
-    public String getClientName() {
-        return clientName;
+    @Column(name = "last_name")
+    public String getLastName() {
+        return lastName;
     }
-
-    @Column(name = "client_category_id", updatable = true)
-    public Integer getClientCategory() {
-        return clientCategory;
+    @Column(name = "first_name")
+    public String getFirstName() {
+        return firstName;
     }
-
-    @Column(name = "client_subcategory_id", updatable = true)
-    public Integer getClientSubcategory() {
-        return clientSubcategory;
+    @Column(name = "national_identifier")
+    public String getNationalIdentifier() {
+        return nationalIdentifier;
     }
-
-    @Column(name = "client_type_id", updatable = true)
-    public Integer getClientTypeId() {
-        return clientTypeId;
+    @Column(name = "birth_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
+    public Date getBirthDate() {
+        return birthDate;
+    }
+    @Column(name = "sex")
+    public String getSex() {
+        return sex;
     }
 
     @CreationTimestamp
@@ -79,24 +86,27 @@ public class Client {
     }
 
     public void setClientId(Integer clientId) {
-
         this.clientId = clientId;
     }
 
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public void setClientCategory(Integer clientCategory) {
-        this.clientCategory = clientCategory;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setClientSubcategory(Integer clientSubcategory) {
-        this.clientSubcategory = clientSubcategory;
+    public void setNationalIdentifier(String nationalIdentifier) {
+        this.nationalIdentifier = nationalIdentifier;
     }
 
-    public void setClientTypeId(Integer clientTypeId) {
-        this.clientTypeId = clientTypeId;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public void setCreationDate(Date creationDate) {
@@ -117,12 +127,13 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
+        return "IndividualClient{" +
                 "clientId=" + clientId +
-                ", clientName='" + clientName + '\'' +
-                ", clientCategory=" + clientCategory +
-                ", clientSubcategory=" + clientSubcategory +
-                ", clientTypeId=" + clientTypeId +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", nationalIdentifier='" + nationalIdentifier + '\'' +
+                ", birthDate=" + birthDate +
+                ", sex='" + sex + '\'' +
                 ", creationDate=" + creationDate +
                 ", createdBy='" + createdBy + '\'' +
                 ", lastUpdateDate=" + lastUpdateDate +

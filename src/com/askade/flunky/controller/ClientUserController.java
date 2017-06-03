@@ -1,9 +1,13 @@
 package com.askade.flunky.controller;
 
 import com.askade.flunky.crm.model.ClientUser;
+import com.askade.flunky.crm.service.ClientEnrolmentService;
 import com.askade.flunky.crm.service.ClientUserService;
 import com.askade.flunky.exception.LoginException;
 import com.askade.flunky.operations.model.AppLogin;
+import com.askade.flunky.operations.model.Operation;
+import com.askade.flunky.operations.service.OperationService;
+import com.askade.flunky.request.ClientEnrolmentRequest;
 import com.askade.flunky.request.LoginRequest;
 import com.askade.flunky.request.TestRequest;
 import com.askade.flunky.response.LoginResponse;
@@ -28,6 +32,12 @@ public class ClientUserController extends FlunkyDefaultController {
 
     @Autowired
     private ClientUserService clientUserService;
+
+    @Autowired
+    private ClientEnrolmentService clientEnrolmentService;
+
+    @Autowired
+    private OperationService operationService;
 
     /**
      * @param clientUser
@@ -64,13 +74,16 @@ public class ClientUserController extends FlunkyDefaultController {
     }
 
     /**
-     * @param request
+     * @param clientEnrolmentRequest
      * @return
      */
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public @ResponseBody JsonResponse test (@Valid @RequestBody TestRequest request){
-
-        return JsonResponse.forSuccess();
+    @RequestMapping(value = "/enrollClient", method = RequestMethod.POST)
+    public @ResponseBody JsonResponse enrollClient (@RequestBody ClientEnrolmentRequest clientEnrolmentRequest){
+        Operation operation = new Operation();
+        operation.setOperTypeId(operationService.getOperationTypeId("ADD_CLIENT"));
+        String voucherNr = operationService.initOperation(operation).getVoucherNr();
+        operationService.executeOperation(voucherNr);
+        return JsonResponse.forSuccess(clientEnrolmentService.enrollIndividualClient(clientEnrolmentRequest));
     }
 
 

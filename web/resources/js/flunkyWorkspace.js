@@ -59,6 +59,8 @@ FlunkyWorkspace.prototype.hideAllPages = function(){
     $("#clientType-config").hide();
     $("#clientCategory-config").hide();
     $("#clientSubcategory-config").hide();
+    $("#phoneType-config").hide();
+    $("#operationType-config").hide();
 }
 
 FlunkyWorkspace.prototype.showDocumentConfig = function(){
@@ -109,4 +111,20 @@ FlunkyWorkspace.prototype.showClientSubcategoryConfig = function(){
     this.hideAllPages();
     $("#appConfig-page").show();
     $("#clientSubcategory-config").show();
+}
+
+FlunkyWorkspace.prototype.showPhoneTypeConfig = function(){
+    this.phoneTypeAction = new PhoneTypeAction();
+    this.phoneTypeAction.initPhoneTypePage();
+    this.hideAllPages();
+    $("#appConfig-page").show();
+    $("#phoneType-config").show();
+}
+
+FlunkyWorkspace.prototype.showOperationTypeConfig = function(){
+    this.operationTypeAction = new OperationTypeAction();
+    this.operationTypeAction.initOperationTypePage();
+    this.hideAllPages();
+    $("#appConfig-page").show();
+    $("#operationType-config").show();
 }

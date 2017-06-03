@@ -27,7 +27,7 @@ public class AppUser {
         return password;
     }
 
-    @Column(name = "enabled")
+    @Column(name = "enabled", columnDefinition = "TINYINT", length = 1)
     public boolean isEnabled() {
         return enabled;
     }

@@ -44,5 +44,5 @@ public interface ClientUserService {
      * @return
      * @throws LoginException
      */
-    public BigInteger loginClientUser(ClientUser clientUser) throws LoginException;
+    public Integer loginClientUser(ClientUser clientUser) throws LoginException;
 }

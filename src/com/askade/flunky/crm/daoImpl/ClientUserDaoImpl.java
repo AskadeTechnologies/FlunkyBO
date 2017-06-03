@@ -1,5 +1,6 @@
-package com.askade.flunky.crm.dao;
+package com.askade.flunky.crm.daoImpl;
 
+import com.askade.flunky.crm.dao.ClientUserDao;
 import com.askade.flunky.crm.model.ClientUser;
 import com.askade.flunky.exception.LoginException;
 import com.askade.flunky.utils.FlunkyUtils;
@@ -27,14 +28,15 @@ public class ClientUserDaoImpl implements ClientUserDao {
      * @param clientUser
      */
     @Override
-    public void addClientUser(ClientUser clientUser) {
+    public ClientUser addClientUser(ClientUser clientUser) {
         ProcedureCall pc = sessionFactory.getCurrentSession().createStoredProcedureCall(this.sequenceName);
-        pc.registerParameter(1, BigInteger.class, ParameterMode.OUT);
-        clientUser.setUserId((BigInteger)pc.getOutputs().getOutputParameterValue(1));
+        pc.registerParameter(1, Integer.class, ParameterMode.OUT);
+        clientUser.setUserId((Integer)pc.getOutputs().getOutputParameterValue(1));
         if(clientUser.getDateIn() == null) {
             clientUser.setDateIn(FlunkyUtils.getCurrentDate());
         }
         sessionFactory.getCurrentSession().saveOrUpdate(clientUser);
+        return clientUser;
     }
 
     /**
@@ -80,7 +82,7 @@ public class ClientUserDaoImpl implements ClientUserDao {
      * @param clientUser
      * @return
      */
-    public BigInteger loginClientUser(ClientUser clientUser) throws LoginException {
+    public Integer loginClientUser(ClientUser clientUser) throws LoginException {
         ClientUser foundClientUser = getClientUserForUserName(clientUser.getUserName());
         if(foundClientUser == null){
             throw new LoginException("USERNAME_NOT_FOUND");

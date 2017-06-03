@@ -1,7 +1,8 @@
-package com.askade.flunky.crm.service;
+package com.askade.flunky.crm.serviceImpl;
 
 import com.askade.flunky.crm.dao.ClientUserDao;
 import com.askade.flunky.crm.model.ClientUser;
+import com.askade.flunky.crm.service.ClientUserService;
 import com.askade.flunky.exception.LoginException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,7 +71,7 @@ public class ClientUserServiceImpl implements ClientUserService {
      * @return
      */
     @Override
-    public BigInteger loginClientUser(ClientUser clientUser) throws LoginException {
+    public Integer loginClientUser(ClientUser clientUser) throws LoginException {
         return clientUserDao.loginClientUser(clientUser);
     }
 }

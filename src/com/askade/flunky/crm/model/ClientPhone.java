@@ -1,61 +1,59 @@
-package com.askade.flunky.appconfig.model;
+package com.askade.flunky.crm.model;
 
 import com.askade.flunky.utils.FlunkyUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 import java.util.Date;
 
 /**
- * Created by AdrianIonita on 5/1/2017.
+ * Created by AdrianIonita on 6/3/2017.
  */
 @Entity
-@Table(name = "xxflk_document_types")
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class DocumentType {
+@Table(name = "xxflk_client_phones")
+public class ClientPhone {
+    public final static String sequenceName = "xxflk_client_phones_s";
     private Integer id;
-    private String code;
-    private String description;
+    private Integer clientId;
+    private Integer phoneTypeId;
+    private String phoneNo;
     private Date dateIn;
     private Date dateOut;
     private Date creationDate;
     private String createdBy;
     private Date lastUpdateDate;
     private String lastUpdatedBy;
-    private String rowStatus;
 
-    public DocumentType() {
+    public ClientPhone() {
     }
 
-    @Column(name = "id")
     @Id
+    @Column(name = "id", updatable = false)
     public Integer getId() {
         return id;
     }
-
-    @Column(name = "code")
-    public String getCode() {
-        return code;
+    @Column(name = "client_id", updatable = false)
+    public Integer getClientId() {
+        return clientId;
     }
-
-    @Column(name = "description")
-    public String getDescription() {
-        return description;
+    @Column(name = "phone_type_id", updatable = false)
+    public Integer getPhoneTypeId() {
+        return phoneTypeId;
     }
-
-    @Column(name = "data_in")
+    @Column(name = "phone", updatable = false)
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+    @Column(name = "data_in", updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
     public Date getDateIn() {
         return dateIn;
     }
-
     @Column(name = "data_out")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
@@ -63,28 +61,26 @@ public class DocumentType {
     public Date getDateOut() {
         return dateOut;
     }
-
-    @Column(name = "creation_date")
-    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column (name = "creation_date", updatable = false)
     public Date getCreationDate() {
         return creationDate;
     }
-
-    @Column(name = "created_by")
+    @Column (name = "created_by", updatable = false)
     public String getCreatedBy() {
         return createdBy;
     }
 
-    @Column(name = "last_update_date")
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Version
-    @UpdateTimestamp
+    @Column (name = "last_update_date")
     public Date getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    @Column(name = "last_updated_by")
+    @Column (name = "last_updated_by")
     public String getLastUpdatedBy() {
         return lastUpdatedBy;
     }
@@ -93,12 +89,16 @@ public class DocumentType {
         this.id = id;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPhoneTypeId(Integer phoneTypeId) {
+        this.phoneTypeId = phoneTypeId;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     public void setDateIn(Date dateIn) {
@@ -125,11 +125,19 @@ public class DocumentType {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
-    public String getRowStatus() {
-        return rowStatus;
-    }
-
-    public void setRowStatus(String rowStatus) {
-        this.rowStatus = rowStatus;
+    @Override
+    public String toString() {
+        return "ClientPhone{" +
+                "id=" + id +
+                ", clientId=" + clientId +
+                ", phoneTypeId=" + phoneTypeId +
+                ", phoneNo='" + phoneNo + '\'' +
+                ", dateIn=" + dateIn +
+                ", dateOut=" + dateOut +
+                ", creationDate=" + creationDate +
+                ", createdBy='" + createdBy + '\'' +
+                ", lastUpdateDate=" + lastUpdateDate +
+                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
+                '}';
     }
 }

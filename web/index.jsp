@@ -111,6 +111,9 @@
             <ul class="treeview-menu">
               <li><a href="#" onclick="flunkyWorkspace.showClientSubcategoryConfig();"><i class="fa fa-circle-o"></i> Client Subcategory</a></li>
             </ul>
+            <ul class="treeview-menu">
+              <li><a href="#" onclick="flunkyWorkspace.showPhoneTypeConfig();"><i class="fa fa-circle-o"></i> Phone Types</a></li>
+            </ul>
           </li>
           <li>
             <a href="#">
@@ -120,7 +123,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="#" ><i class="fa fa-circle-o"></i> Operations Type</a></li>
+              <li><a href="#" onclick="flunkyWorkspace.showOperationTypeConfig();"><i class="fa fa-circle-o"></i> Operations Type</a></li>
             </ul>
           </li>
         </ul>
@@ -248,6 +251,29 @@
         <!--div id="documentTypeTablePager"></div-->
       </div>
     </section>
+    <section id="phoneType-config" class="content" style="display:none">
+      <div class="h-divider"></div>
+      <div>
+        <h3><b>Tipuri Telefoane</b></h3>
+        <div class="h-spacer"></div>
+        <button id="addNewPhoneType" onclick="flunkyWorkspace.phoneTypeAction.addPhoneType()" class="btn btn-primary">Add</button>
+        <button id="savePhoneTypes" onclick="flunkyWorkspace.phoneTypeAction.savePhoneType()" class="btn btn-success">Save</button>
+        <table id="phoneType-table" class="table table-bordered table-striped "></table>
+        <!--div id="documentTypeTablePager"></div-->
+      </div>
+    </section>
+    <section id="operationType-config" class="content" style="display:none">
+      <div class="h-divider"></div>
+      <div>
+        <h3><b>Tipuri Operatiuni</b></h3>
+        <div class="h-spacer"></div>
+        <button id="addNewOperationType" onclick="flunkyWorkspace.operationTypeAction.addOperationType()" class="btn btn-primary">Add</button>
+        <button id="saveOperationTypes" onclick="flunkyWorkspace.operationTypeAction.saveOperationType()" class="btn btn-success">Save</button>
+        <table id="operationType-table" class="table table-bordered table-striped "></table>
+        <!--div id="documentTypeTablePager"></div-->
+      </div>
+    </section>
+
   </div>
   <!--Application Config-->
 </div>
@@ -300,6 +326,11 @@
 <script type="text/javascript" src='<c:url value="/resources/js/appConfig/action/clientSubcategoryAction.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/js/appConfig/action/clientTypeAction.js"/>'></script>
 
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/model/phoneTypeObject.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/action/phoneTypeAction.js"/>'></script>
+
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/model/operationTypeObject.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/action/operationTypeAction.js"/>'></script>
 
   <script type="text/javascript" src='<c:url value="/resources/js/ptm.js"/>'></script>
 </html>

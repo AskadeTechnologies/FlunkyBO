@@ -14,7 +14,7 @@ public interface ClientUserDao {
     /**
      * @param clientUser
      */
-    public void addClientUser(ClientUser clientUser);
+    public ClientUser addClientUser(ClientUser clientUser);
 
     /**
      * @return
@@ -44,5 +44,5 @@ public interface ClientUserDao {
      * @return
      * @throws LoginException
      */
-    public BigInteger loginClientUser(ClientUser clientUser) throws LoginException;
+    public Integer loginClientUser(ClientUser clientUser) throws LoginException;
 }

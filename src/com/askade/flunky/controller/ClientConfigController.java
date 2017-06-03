@@ -42,7 +42,8 @@ public class ClientConfigController {
     @Autowired
     private AddressTypeService<AddressType> addressTypeService;
 
-
+    @Autowired
+    private PhoneTypeService<PhoneType> phoneTypeService;
 
     /**
      * @return
@@ -196,6 +197,25 @@ public class ClientConfigController {
     @RequestMapping(value = "/postAddressType", method = RequestMethod.POST)
     public @ResponseBody JsonResponse postAddressType(@RequestBody AddressType addressType){
         addressTypeService.addRow(addressType);
+        return JsonResponse.forSuccess();
+    }
+
+    /**
+     * @return
+     */
+    @RequestMapping(value = "/getPhoneTypes", method = RequestMethod.GET)
+    public @ResponseBody JsonResponse getPhoneTypes(){
+        return JsonResponse.forSuccess(phoneTypeService.getAllRows());
+    }
+
+    /**
+     * @param phoneType
+     * @return
+     */
+    @Transactional
+    @RequestMapping(value = "/postPhoneType", method = RequestMethod.POST)
+    public @ResponseBody JsonResponse postPhoneType(@RequestBody PhoneType phoneType){
+        phoneTypeService.addRow(phoneType);
         return JsonResponse.forSuccess();
     }
 }
