@@ -12,12 +12,13 @@ import java.math.BigInteger;
 import java.util.Date;
 
 /**
- * Created by AdrianIonita on 5/1/2017.
+ * Created by AdrianIonita on 6/2/2017.
  */
 @Entity
-@Table(name = "xxflk_document_types")
+@Table(name = "xxflk_address_categories")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DocumentType {
+public class AddressCategory {
+
     private BigInteger id;
     private String code;
     private String description;
@@ -27,9 +28,8 @@ public class DocumentType {
     private String createdBy;
     private Date lastUpdateDate;
     private String lastUpdatedBy;
-    private String rowStatus;
 
-    public DocumentType() {
+    public AddressCategory() {
     }
 
     @Column(name = "id")
@@ -123,11 +123,4 @@ public class DocumentType {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
-    public String getRowStatus() {
-        return rowStatus;
-    }
-
-    public void setRowStatus(String rowStatus) {
-        this.rowStatus = rowStatus;
-    }
 }

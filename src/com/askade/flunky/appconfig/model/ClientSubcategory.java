@@ -2,6 +2,7 @@ package com.askade.flunky.appconfig.model;
 
 import com.askade.flunky.utils.FlunkyUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +14,9 @@ import java.util.Date;
 /**
  * Created by AdrianIonita on 5/25/2017.
  */
+@Entity
+@Table(name = "xxflk_client_subcategories")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ClientSubcategory {
 
     private BigInteger id;
@@ -51,15 +55,15 @@ public class ClientSubcategory {
     }
 
     @Column(name = "data_in")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
     public Date getDateIn() {
         return dateIn;
     }
 
     @Column(name = "data_out")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
     public Date getDateOut() {
         return dateOut;
     }

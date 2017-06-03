@@ -96,6 +96,21 @@
             <ul class="treeview-menu">
               <li><a href="#" onclick="flunkyWorkspace.showDocumentConfig();"><i class="fa fa-circle-o"></i> Document config</a></li>
             </ul>
+            <ul class="treeview-menu">
+              <li><a href="#" onclick="flunkyWorkspace.showAddressCategoryConfig();"><i class="fa fa-circle-o"></i> Address Category</a></li>
+            </ul>
+            <ul class="treeview-menu">
+              <li><a href="#" onclick="flunkyWorkspace.showAddressTypeConfig();"><i class="fa fa-circle-o"></i> Address Type</a></li>
+            </ul>
+            <ul class="treeview-menu">
+              <li><a href="#" onclick="flunkyWorkspace.showClientTypeConfig();"><i class="fa fa-circle-o"></i> Client Type</a></li>
+            </ul>
+            <ul class="treeview-menu">
+              <li><a href="#" onclick="flunkyWorkspace.showClientCategoryConfig();"><i class="fa fa-circle-o"></i> Client Category</a></li>
+            </ul>
+            <ul class="treeview-menu">
+              <li><a href="#" onclick="flunkyWorkspace.showClientSubcategoryConfig();"><i class="fa fa-circle-o"></i> Client Subcategory</a></li>
+            </ul>
           </li>
           <li>
             <a href="#">
@@ -167,7 +182,7 @@
       </h1>
     </section>
 
-    <section id="client-config" class="content" style="display:none">
+    <section id="document-config" class="content" style="display:none">
       <div class="h-divider"></div>
       <div>
         <h3><b>Tipuri Documente Clienti</b></h3>
@@ -175,15 +190,62 @@
           <button id="addNewDocumentType" onclick="flunkyWorkspace.documenTypeAction.addNewDocumentType()" class="btn btn-primary">Add</button>
           <button id="saveDocumentTypes" onclick="flunkyWorkspace.documenTypeAction.saveNewDocType()" class="btn btn-success">Save</button>
           <table id="documentType-table" class="table table-bordered table-striped "></table>
-          <div id="documentTypeTablePager"></div>
+          <!--div id="documentTypeTablePager"></div-->
       </div>
     </section>
-
-    <section id="operation-config" class="content" style="display:none">
+    <section id="addressCategory-config" class="content" style="display:none">
       <div class="h-divider"></div>
       <div>
-        <h3><b>Operations Config</b></h3>
+        <h3><b>Categorii Adrese Clienti</b></h3>
         <div class="h-spacer"></div>
+        <button id="addNewAddressCategory" onclick="flunkyWorkspace.addressCategoryAction.addNewAddressCategory()" class="btn btn-primary">Add</button>
+        <button id="saveAddressCategory" onclick="flunkyWorkspace.addressCategoryAction.saveAddressCategory()" class="btn btn-success">Save</button>
+        <table id="addressCategory-table" class="table table-bordered table-striped "></table>
+        <!--div id="documentTypeTablePager"></div-->
+      </div>
+    </section>
+    <section id="addressType-config" class="content" style="display:none">
+      <div class="h-divider"></div>
+      <div>
+        <h3><b>Tipuri Adrese Clienti</b></h3>
+        <div class="h-spacer"></div>
+        <button id="addNewAddressType" onclick="flunkyWorkspace.addressTypeAction.addNewAddressType()" class="btn btn-primary">Add</button>
+        <button id="saveAddressTypes" onclick="flunkyWorkspace.addressTypeAction.saveAddressType()" class="btn btn-success">Save</button>
+        <table id="addressType-table" class="table table-bordered table-striped "></table>
+        <!--div id="documentTypeTablePager"></div-->
+      </div>
+    </section>
+    <section id="clientCategory-config" class="content" style="display:none">
+      <div class="h-divider"></div>
+      <div>
+        <h3><b>Categorii Clienti</b></h3>
+        <div class="h-spacer"></div>
+        <button id="addNewClientCategory" onclick="flunkyWorkspace.clientCategoryAction.addClientCategory()" class="btn btn-primary">Add</button>
+        <button id="saveClientCategory" onclick="flunkyWorkspace.clientCategoryAction.saveClientCategory()" class="btn btn-success">Save</button>
+        <table id="clientCategory-table" class="table table-bordered table-striped "></table>
+        <!--div id="documentTypeTablePager"></div-->
+      </div>
+    </section>
+    <section id="clientSubcategory-config" class="content" style="display:none">
+      <div class="h-divider"></div>
+      <div>
+        <h3><b>Subcategorii Clienti</b></h3>
+        <div class="h-spacer"></div>
+        <button id="addNewClientSubcategory" onclick="flunkyWorkspace.clientSubcategoryAction.addClientSubcategory()" class="btn btn-primary">Add</button>
+        <button id="saveClientSubcategory" onclick="flunkyWorkspace.clientSubcategoryAction.saveClientSubcategory()" class="btn btn-success">Save</button>
+        <table id="clientSubcategory-table" class="table table-bordered table-striped "></table>
+        <!--div id="documentTypeTablePager"></div-->
+      </div>
+    </section>
+    <section id="clientType-config" class="content" style="display:none">
+      <div class="h-divider"></div>
+      <div>
+        <h3><b>Tipuri Clienti</b></h3>
+        <div class="h-spacer"></div>
+        <button id="addNewClientType" onclick="flunkyWorkspace.clientTypeAction.addClientType()" class="btn btn-primary">Add</button>
+        <button id="saveClientTypes" onclick="flunkyWorkspace.clientTypeAction.saveClientType()" class="btn btn-success">Save</button>
+        <table id="clientType-table" class="table table-bordered table-striped "></table>
+        <!--div id="documentTypeTablePager"></div-->
       </div>
     </section>
   </div>
@@ -226,5 +288,18 @@
   <script type="text/javascript" src='<c:url value="/resources/js/flunkyWorkspace.js"/>'></script>
   <script type="text/javascript" src='<c:url value="/resources/js/appConfig/action/documentTypeAction.js"/>'></script>
   <script type="text/javascript" src='<c:url value="/resources/js/appConfig/model/documentTypeObject.js"/>'></script>
+
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/model/addressCategoryObject.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/model/addressTypeObject.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/model/clientCategoryObject.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/model/clientSubcategoryObject.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/model/clientTypeObject.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/action/addressCategoryAction.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/action/addressTypeAction.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/action/clientCategoryAction.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/action/clientSubcategoryAction.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/appConfig/action/clientTypeAction.js"/>'></script>
+
+
   <script type="text/javascript" src='<c:url value="/resources/js/ptm.js"/>'></script>
 </html>

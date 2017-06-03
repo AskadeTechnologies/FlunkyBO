@@ -1,7 +1,8 @@
-package com.askade.flunky.appconfig.service;
+package com.askade.flunky.appconfig.serviceImpl;
 
 import com.askade.flunky.appconfig.dao.DocumentTypeDao;
 import com.askade.flunky.appconfig.model.DocumentType;
+import com.askade.flunky.appconfig.service.DocumentTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class DocumentTypeServiceImpl implements DocumentTypeService{
+public class DocumentTypeServiceImpl implements DocumentTypeService {
 
     @Autowired
     private DocumentTypeDao documentTypeDao;

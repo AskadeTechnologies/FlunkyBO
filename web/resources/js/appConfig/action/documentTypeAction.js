@@ -92,11 +92,11 @@ DocumentTypeAction.prototype.documentTypeList = function() {
                     dataInit: function (element) {
                         $(element).datepicker();
                     }
-                },
+                }/*,
                 editrules: {
                     date: true,
                     minValue: 0
-                }} ,
+                }*/} ,
             {name:'dateOut', index:'dateOut', hidden: false,
                 align: 'right',
                 formatter: 'date',
@@ -107,21 +107,22 @@ DocumentTypeAction.prototype.documentTypeList = function() {
                     dataInit: function (element) {
                         $(element).datepicker();
                     }
-                },
+                }/*,
                 editrules: {
                     date: true,
                     minValue: 0
-                }},
+                }*/},
             {name:'rowStatus', index:'rowStatus', hidden: true}],
         rowNum:10, rowList:[5,10,20],
         sortname: 'id',
         viewrecords: true,
         sortorder: "desc",
         autowidth:true,
+        shrinkToFit: true,
+        forceFit:true,
+        height:"100%",
         width: '100%',
-        height: '100%',
         loadonce: true,
-        pager: '#documentTypeTablePager',
         jsonReader: {
             root: "data"
         },
@@ -133,18 +134,13 @@ DocumentTypeAction.prototype.documentTypeList = function() {
             if(data.status == "ERROR"){
                 flunkyWorkspace.showError(data.statusMessage);
             }
-                $('#gview_docTypes-table div.ui-jqgrid-bdiv').css({
-                    "height":"500px",
-                    "overflow":"hidden"
-                });
-                $('#gview_docTypes-table div.ui-jqgrid-bdiv').perfectScrollbar();
-            /*
-            $('#gview_reportmapping-table div.ui-jqgrid-bdiv').css({
+
+            $('#gview_documentType-table div.ui-jqgrid-bdiv').css({
                 "height":"500px",
                 "overflow":"hidden"
             });
-            $('#gview_reportmapping-table div.ui-jqgrid-bdiv').perfectScrollbar();
-            */
+            $('#gview_documentType-table div.ui-jqgrid-bdiv').perfectScrollbar();
+
         }/*,
          onSelectRow: function(id) {
          var grid = $("#productspecmapping-table");
@@ -172,13 +168,17 @@ DocumentTypeAction.prototype.saveNewDocType = function(){
     //var _row = jQuery("#documentType-table").jqGrid("getRowData", rowid);
     var ids = jQuery("#documentType-table").jqGrid('getDataIDs');
     for(var i=0;i <ids.length; i++) {
-        jQuery("#documentType-table").jqGrid('saveRow',ids[i], false, 'clientArray');
+        jQuery("#documentType-table").jqGrid('saveRow', ids[i], false, 'clientArray');
+    }
+    var ids = jQuery("#documentType-table").jqGrid('getDataIDs');
+    for(var i=0;i <ids.length; i++) {
         var _row = jQuery("#documentType-table").jqGrid("getRowData", ids[i]);
         if(_row.rowStatus == "INSERT"){
-            console.log("document type "+JSON.stringify(_row, ["code","description","dateIn","dateOut"]));
+            _row.id = null;
+            console.log("document type "+JSON.stringify(_row, flunkyWorkspace.replaceSpaceString, ["code","description","dateIn","dateOut"]));
             $.ajax({
                 url: flunkyWorkspace.urlPrefix+"/config/client/postNewDocumentType", type: 'POST',
-                data: JSON.stringify(_row, ["code","description","dateIn","dateOut"]), dataType: 'json', contentType: "application/json",
+                data: JSON.stringify(_row, flunkyWorkspace.replaceSpaceString, ["code","description","dateIn","dateOut"]), dataType: 'json', contentType: "application/json",
                 success: function (result) {
                     //FlunkyWorkspace.actions().getProductAction().newAndEditedProductListTable(result.data);
                 },
@@ -192,9 +192,7 @@ DocumentTypeAction.prototype.saveNewDocType = function(){
 }
 
 DocumentTypeAction.prototype.addNewDocumentType = function(){
-    jQuery("#documentType-table").addRowData( '1', new DocumentTypeObject("INSERT"));
-    $("#documentType-table").jqGrid('editRow', '1',true);
-    //saveRow = "<button id=\"btn-saveDocType\" type=\"button\" class=\"btn btn-block btn-primary\" onclick=\"FlunkyWorkspace.saveNewDocType("+'1'+")\" >Save</button>";
-
-    //jQuery("#documentType-table").jqGrid('setRowData', '1', {save:saveRow});
+    var rowId = $.jgrid.randId();
+    jQuery("#documentType-table").addRowData( rowId, new DocumentTypeObject("INSERT"));
+    $("#documentType-table").jqGrid('editRow', rowId,true);
 }

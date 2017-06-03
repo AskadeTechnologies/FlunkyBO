@@ -49,15 +49,15 @@ public class ClientType {
     }
 
     @Column(name = "data_in")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
     public Date getDateIn() {
         return dateIn;
     }
 
     @Column(name = "data_out")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)
     public Date getDateOut() {
         return dateOut;
     }

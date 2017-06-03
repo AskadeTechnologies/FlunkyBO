@@ -1,5 +1,6 @@
-package com.askade.flunky.appconfig.dao;
+package com.askade.flunky.appconfig.daoImpl;
 
+import com.askade.flunky.appconfig.dao.DocumentTypeDao;
 import com.askade.flunky.appconfig.model.DocumentType;
 import org.hibernate.SessionFactory;
 import org.hibernate.procedure.ProcedureCall;

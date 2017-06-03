@@ -1,5 +1,6 @@
-package com.askade.flunky.appconfig.dao;
+package com.askade.flunky.appconfig.daoImpl;
 
+import com.askade.flunky.appconfig.dao.AppUserDao;
 import com.askade.flunky.appconfig.model.AppUser;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

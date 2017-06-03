@@ -1,4 +1,4 @@
-package com.askade.flunky.appconfig.service;
+package com.askade.flunky.appconfig.serviceImpl;
 
 import com.askade.flunky.appconfig.dao.AppUserDao;
 import com.askade.flunky.appconfig.model.AppUserRole;

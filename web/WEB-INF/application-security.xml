@@ -23,7 +23,7 @@
         <!--csrf /-->
     </http>
 
-    <beans:bean class="com.askade.flunky.appconfig.service.AppUserDetailServiceImpl" name="appUserDetailService"/>
+    <beans:bean class="com.askade.flunky.appconfig.serviceImpl.AppUserDetailServiceImpl" name="appUserDetailService"/>
 
     <authentication-manager>
         <authentication-provider user-service-ref="appUserDetailService" >

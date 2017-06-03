@@ -1,7 +1,8 @@
-package com.askade.flunky.appconfig.service;
+package com.askade.flunky.appconfig.serviceImpl;
 
 import com.askade.flunky.appconfig.dao.ClientTypeDao;
 import com.askade.flunky.appconfig.model.ClientType;
+import com.askade.flunky.appconfig.service.ClientTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
