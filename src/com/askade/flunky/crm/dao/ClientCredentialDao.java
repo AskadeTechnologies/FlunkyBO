@@ -8,4 +8,8 @@ import com.askade.flunky.crm.model.ClientCredential;
 public interface ClientCredentialDao {
 
     public ClientCredential addClientCredential(ClientCredential clientCredential);
+
+    public ClientCredential findByUserId(Integer userId);
+
+    public ClientCredential findByClientId(Integer clientId);
 }

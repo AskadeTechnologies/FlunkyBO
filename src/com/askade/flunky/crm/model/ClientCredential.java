@@ -42,7 +42,7 @@ public class ClientCredential {
     public Integer getUserId() {
         return userId;
     }
-    @Column(name = "date_id", updatable = false)
+    @Column(name = "date_in", updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone= FlunkyUtils.BUCHAREST_TIME_ZONE)

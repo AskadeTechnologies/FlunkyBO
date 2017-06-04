@@ -1,6 +1,8 @@
 package com.askade.flunky.crm.serviceImpl;
 
+import com.askade.flunky.crm.dao.ClientCredentialDao;
 import com.askade.flunky.crm.dao.ClientUserDao;
+import com.askade.flunky.crm.model.ClientCredential;
 import com.askade.flunky.crm.model.ClientUser;
 import com.askade.flunky.crm.service.ClientUserService;
 import com.askade.flunky.exception.LoginException;
@@ -20,6 +22,8 @@ public class ClientUserServiceImpl implements ClientUserService {
 
     @Autowired
     private ClientUserDao clientUserDao;
+    @Autowired
+    private ClientCredentialDao clientCredentialDao;
     /**
      * @param clientUser
      */
@@ -72,6 +76,8 @@ public class ClientUserServiceImpl implements ClientUserService {
      */
     @Override
     public Integer loginClientUser(ClientUser clientUser) throws LoginException {
-        return clientUserDao.loginClientUser(clientUser);
+        Integer userId = clientUserDao.loginClientUser(clientUser);
+        ClientCredential clientCredential = clientCredentialDao.findByUserId(userId);
+        return clientCredential.getClientId();
     }
 }
